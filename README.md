@@ -2,51 +2,75 @@
 
 ![KSEA Logo](http://i.imgur.com/L7rpnwm.png)
 
-Historian is a small utility for Kerbal Space Program to automatically add useful and aesthetically pleasing information to screenshots in a highly configurable manner.
+Historian is a screenshot utility mod for Kerbal Space Program that adds fully configurable and dynamic captions and overlay graphics to screenshots to better describe the context of screenshots and record your Kerbal adventures.
 
-![Sample](http://i.imgur.com/QBYlcd9l.png)
+## Installation
 
-# Configuration
+1. Download the latest version of Historian from either [Kerbal Stuff](https://kerbalstuff.com/mod/821/Historian) or [GitHub](https://github.com/Zeenobit/Historian/releases).
+2. Extract the archive into your KSP installation folder, and overwrite all existing files.
+3. Enjoy!
 
-You can configure Historian on the fly by editting the settings file. While the game is running, use the Historian button in the Application Launcher to open the settings menu.
+## Configuration
+
+You can open the Historian configuration window by using either the stock application launcher, or [Blizzy's Toolbar](http://forum.kerbalspaceprogram.com/threads/60863).
 
 * __Suppressed__: When suppressed, Historian will not display the overlay when taking screenshots.
-* __Always Active__: If this is turned on, the overlay will always show on top of the game. This is useful when editting the layout.
-* __Reload__: Click this button to reload the layout configuration while the game is running.
-* __Close__: Closes the settings window.
+* __Always Active__: If this is turned on, the overlay will always show on top of the game. This is useful when editting layouts.
+* __Load__: Reloads all layouts while the game is running.
+* __Save__: Saves the current layout as the default layout (selected automatically everytime you launch KSP).
 
-To modify the layout, open `<KSP Root>/GameData/KSEA/Historian/Historian.cfg`. There are various type of _Element_ nodes that you can add, remove, or modify to customize the layout to your liking.
+Press the configuration window again to close the configuration window.
+Note that the configuration window shows up even if you have GUI disabled using the 'F2' key. This is intentional to allow layout editting while the game GUI is off.
 
-The following element types are currently supposed by Historian:
+### Layouts
+
+All Historian layout files must be located inside `<KSP Root>/GameData/KSEA/Historian/Layouts` folder, and must have a `*.layout` extension to be recognized by Historian. Even though the files have a `*.layout` extension, they follow the same syntax as KSP's `*.cfg` files. This is to prevent the game from loading them into the database by default. You can edit these files using your favorite text editor.
+
+The following documentations assumes that you have a basic knowledge about KSP's configuration file syntax. To create a new layout, simply create a new empty text file and call it `<Layout Name>.layout`. Make sure the file has a `*.layout` extension. To modify a layout, simply open it in any text editor.
+
+All layouts have a root node defined by `KSEA_HISTORIAN_LAYOUT`. Inside this node, you can define your elements. Elements are the basic building blocks of a layout. Each layout has a number of elements, rendered in the order defined (this is useful to remember if you plan on layering the elements). Each element is defined by a configuration node and has a few properties that determine the element's behaviour.
+
+#### Elements
+
+The following element types are currently supported by Historian:
 
 * `RECTANGLE` Draws a simple 2D rectangle with a solid color on the screen.
 * `TEXT` Draws some text on the screen. Supports rich text and value placeholders.
 * `PICTURE` Renders a 2D image onto the screen.
-* `FLAG` Renders the current vessel's flag onto the screen.
+* `FLAG` Renders the current mission's flag onto the screen.
+
+##### Common Properties
 
 Each element has the following common properties:
 
-* `Anchor` (2D Vector) Anchor of the element, relative to itself.
-* `Position` (2D Vector) Anchored position of the element, relative to the screen.
-* `Size` (2D Vector) Width and height of the element, relative to the screen.
-* `Color` (Color) Primary color of the element.
+* `Anchor` Anchor of the element, relative to itself, expressed as a 2D vector. _Default: 0.0,0.0_
+* `Position` Anchored position of the element, relative to the screen, expressed as a 2D vector. _Default: 0.0,0.0_
+* `Size` Width and height of the element, relative to the screen, expressed as a 2D vector. _Default: 0.0,0.0_
 
 Note that all properties are expressed in relative percentage values. For example, `Anchor = 0.5,0.5` means the center of the element, `Position = 0.5,0.0` means top center of the screen, and `Size = 1.0,1.0` means the entire size of the screen.
 
 In addition to these properties, each element may have a few additional properties:
 
-### Text
+##### Rectangle
 
-* `Value` (String) Value of the text that is to be displayed. Supports rich text and placeholder values.
-* `Alignment` (Enum) Alignment of the text relative to the size of the element. Supports any one of these values: `UpperLeft`, `UpperCenter`, `UpperRight`, `MiddleLeft`,`MiddleCenter`, `MiddleRight`, `LowerLeft`, `LowerCenter`, and `LowerRight`.
-* `Height` (Integer) Font height (size), in pixels
-* `Style` (Enum) Style of the font. Supports any one of these values: `Normal`, `Bold`, `Italic`, and `BoldAndItalic`.
+A `RECTANGLE` fills a rectangular area of the screen with a solid color. You can use semi-transparent colors.
 
-When setting the `Value` property, you can use Rich Text formatting. You can refer to [Unity's Manual](http://docs.unity3d.com/Manual/StyledText.html) for details.
+* `Color` The color of the rectangular area, expressed in RGBA values. _Default: 0.0,0.0,0.0,1.0_
 
-You can also use value placeholders. Currently, the following placeholders are supported:
+##### Text
 
-* `<N>` New line.
+A `TEXT` element renders a string of text.
+
+* `Text` Value of the text that is to be displayed. Supports rich text and placeholder values. _Default: Empty_
+* `TextAnchor` Alignment of the text relative to the bounds of the element. Supports any one of these values: `UpperLeft`, `UpperCenter`, `UpperRight`, `MiddleLeft`,`MiddleCenter`, `MiddleRight`, `LowerLeft`, `LowerCenter`, and `LowerRight`. _Default: MiddleCenter_
+* `FontSize` Size of the font. Note that rich text format specifiers can override this. _Default: 10_
+* `FontStyle` Style of the font. Supports any one of these values: `Normal`, `Bold`, `Italic`, and `BoldAndItalic`. Note that rich text format specifiers can override this. _Default: Normal_
+
+Refer to [Unity's Manual](http://docs.unity3d.com/Manual/StyledText.html) for details on Rich Text formatting syntax.
+
+The following pre-defined placeholder values can be used inside a text element. These placeholders will be replaced with their corresponding values when a screenshot is taken.
+
+* `<N>` Inserts a new line.
 * `<UT>` KSP Universal Time. Example: _Y12, D29, 2:02:12_
 * `<Year>` Current year in Kerbal time
 * `<Day>` Current day in Kerbal time
@@ -64,54 +88,61 @@ You can also use value placeholders. Currently, the following placeholders are s
 
 Note that all placeholder values are case-sensitive.
 
-### Picture
+##### Picture
 
-* `Path` (String) Path to the image file, relative to the `GameData` directory. Example: `Squad/Flags/default`
-* `Scale` (2D Vector) Scale of the image relative to itself.
-* `Size` (2D Vector) If a size parameter is not provided, the size of the image is used automatically. Otherwise it denotes  the size of the image relative to screen dimensions.
+A `PICTURE` element renders a static 2D texture onto the screen. To save KSP memory usage, you can use any of the pre-loaded textures, such as missions flags, agency flags, or even part textures. You can also use any other custom texture as long as the path to your image is valid. Vintage border effects, anyone? ;)
 
-### Flag
+* `Texture` Path to the image file, relative to the `GameData` directory. Example: `Squad/Flags/default`
+* `Scale` Scale of the image relative to itself. For example, a value of `2.0,2.0` doubles the size of the texture, while maintaining the aspect ratio. _Default: 1.0,1.0_
 
-* `Default` (String) Path to a default image file to show if no flag can be determined for the active vessel, or if there is no active vessel. Example: `Squad/Flags/default`
-* `Scale` (2D Vector) Scale of the image.
-* `Size` (2D Vector) If a size parameter is not provided, the size of the image is used automatically. Otherwise it denotes the size of the image relative to screen dimensions.
+If a `Size` property is not defined (or if the size is a zero vector), the size of the image is used automatically. Otherwise it denotes  the size of the image relative to screen dimensions. For example, a value of `1.0,1.0` ensures the image takes up the size of the entire screen. _Default: 0.0,0.0_
 
-## Sample Configuration
+##### Flag
 
-Below, you can find the default Historian configuration file as an example on how to set up a layout.
+A `FLAG` element can be used to render the current mission's flag onto the screen. It behaves very much like a `PICTURE` otherwise.
 
-    KSEA_HISTORIAN_CONFIGURATION
+* `DefaultTexture` Path to a default image file to show if no flag can be determined for the active vessel, or if there is no active vessel. Example: `Squad/Flags/default`
+* `Scale` Scale of the image relative to itself. For example, a value of `2.0,2.0` doubles the size of the texture, while maintaining the aspect ratio. _Default: 1.0,1.0_
+
+If a `Size` property is not defined (or if the size is a zero vector), the size of the image is used automatically. Otherwise it denotes  the size of the image relative to screen dimensions. For example, a value of `1.0,1.0` ensures the image takes up the size of the entire screen. _Default: 0.0,0.0_
+
+### Sample Configuration
+
+Below, you can find an example of a default layout:
+
+    KSEA_HISTORIAN_LAYOUT
     {
-        Version = 0.1
-    	
-        LAYOUT
+        Name = Default
+        
+        RECTANGLE
         {
-            RECTANGLE
-            {
-                Anchor = 0.0,0.5
-                Size = 1.0,0.125
-                Position = 0.0,0.85
-                Color = 0.0,0.0,0.0,0.5
-            }
-            
-            FLAG
-            {
-                Anchor = 0.5,0.5
-                Position = 0.1,0.85
-                Scale = 1,1
-                Default = Squad/Flags/default
-            }
-            
-            TEXT
-            {
-                Anchor = 0.0,0.5
-                Position = 0.25,0.85
-                Size = 0.5,0.1
-                Color = 1.0,1.0,1.0,1.0
-                Value = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b> (<T+>)<N><size=12><Situation> @ <Body> (<Biome>, <Latitude>° <Longitude>°) </size>
-                Alignment = MiddleLeft
-                Height = 12
-                Style = Normal
-            }
+            Anchor = 0.0,0.5
+            Size = 1.0,0.125
+            Position = 0.0,0.85
+            Color = 0.0,0.0,0.0,0.5
+        }
+    
+        FLAG
+        {
+            Anchor = 0.5,0.5
+            Position = 0.1,0.85
+            Scale = 1,1
+            DefaultTexture = Squad/Flags/default
+        }
+    
+        TEXT
+        {
+            Anchor = 0.0,0.5
+            Position = 0.25,0.85
+            Size = 0.5,0.1
+            Color = 1.0,1.0,1.0,1.0
+            Text = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b> (<T+>)<N><size=12><Situation> @ <Body>     (<Biom        , <Latitude>° <Longitude>°) </size>
+            TextAnchor = MiddleLeft
+            FontSize = 12
+            FontStyle = Normal
         }
     }
+
+This layout would produce screenshots that look like this:
+
+![](http://i.imgur.com/nqsvA09m.png)
