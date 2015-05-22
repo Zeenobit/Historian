@@ -1,0 +1,32 @@
+KSEA_HISTORIAN_LAYOUT
+{
+	Name = Alternative
+	
+	RECTANGLE
+	{
+		Anchor = 0.0,0.5
+		Size = 1.0,0.2
+		Position = 0.0,0.9
+		Color = 0.0,0.0,0.0,0.5
+	}
+
+	FLAG
+	{
+		Anchor = 0.0,0.0
+		Position = 0.01,0.01
+		Scale = 1,1
+		DefaultTexture = Squad/Flags/default
+	}
+
+	TEXT
+	{
+		Anchor = 0.0,0.0
+		Position = 0.02,0.85
+		Size = 0.5,0.1
+		Color = 1.0,1.0,1.0,1.0
+		Text = <size=22><b><Vessel></b></size><N><size=12><Situation> @ <Body> (<Biome>) </size>
+		TextAnchor = MiddleLeft
+		FontSize = 12
+		FontStyle = Normal
+	}
+}
