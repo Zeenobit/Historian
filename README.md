@@ -145,4 +145,4 @@ Below, you can find an example of a default layout:
 
 This layout would produce screenshots that look like this:
 
-![](http://i.imgur.com/nqsvA09m.png)
+![](http://i.imgur.com/nqsvA09l.png)
