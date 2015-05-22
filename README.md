@@ -65,6 +65,7 @@ A `TEXT` element renders a string of text.
 * `TextAnchor` Alignment of the text relative to the bounds of the element. Supports any one of these values: `UpperLeft`, `UpperCenter`, `UpperRight`, `MiddleLeft`,`MiddleCenter`, `MiddleRight`, `LowerLeft`, `LowerCenter`, and `LowerRight`. _Default: MiddleCenter_
 * `FontSize` Size of the font. Note that rich text format specifiers can override this. _Default: 10_
 * `FontStyle` Style of the font. Supports any one of these values: `Normal`, `Bold`, `Italic`, and `BoldAndItalic`. Note that rich text format specifiers can override this. _Default: Normal_
+* `Color` Color of the font. Note that rich text format specifiers can override this. _Default: 1.0,1.0,1.0,1.0_
 
 Refer to [Unity's Manual](http://docs.unity3d.com/Manual/StyledText.html) for details on Rich Text formatting syntax.
 
@@ -143,6 +144,6 @@ Below, you can find an example of a default layout:
         }
     }
 
-This layout would produce screenshots that look like this:
+This layout would produce screenshots that looks like this:
 
 ![](http://i.imgur.com/nqsvA09l.png)
