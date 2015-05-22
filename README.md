@@ -136,7 +136,7 @@ Below, you can find an example of a default layout:
             Position = 0.25,0.85
             Size = 0.5,0.1
             Color = 1.0,1.0,1.0,1.0
-            Text = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b> (<T+>)<N><size=12><Situation> @ <Body>     (<Biom        , <Latitude>° <Longitude>°) </size>
+            Text = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b> (<T+>)<N><size=12><Situation> @ <Body> (<Biome>, <Latitude>° <Longitude>°) </size>
             TextAnchor = MiddleLeft
             FontSize = 12
             FontStyle = Normal
