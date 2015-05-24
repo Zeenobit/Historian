@@ -86,8 +86,30 @@ The following pre-defined placeholder values can be used inside a text element. 
 * `<Latitude>` Latitude of the active vessel relative to the main body (Only available in Flight Mode)
 * `<Longitude>` Longitude of the active vessel relative to the main body (Only available in Flight Mode)
 * `<Altitude>` Altitude of the active vessel relative to the sea level of the main body (Only available in Flight Mode)
+* `<Mach>` The current Mach number of the active vessel (Only available in Flight Mode).
+* `<LandingZone>` The name of the current location the vessel is landed at (Only available in Flight Mode). Example: _Launchpad_
+* `<Speed>` Surface speed of the active vessel  in m/s (Only available in Flight Mode).
+* `<Custom>` The current value of the Custom Text. You can set this value using the configuration window. If custom text is not persistent (default), it will be cleared after the next screenshot.
 
 Note that all placeholder values are case-sensitive.
+
+##### Situation Text
+
+A `SITUATION_TEXT` element behaves similar to the `TEXT` element. It has all of its properties except `Text`. Instead, it has the following additional properties, each corresponding to a different flight situation:
+
+* `Default` Used when no flight situation is available.
+* `Landed` Used when the vessel is landed.
+* `Splashed` Used when the vessel is splashed in water.
+* `Prelaunch` Used when the vessel is on the launchpad.
+* `Flying` Used when the vessel is flying in atmosphere.
+* `SubOrbital` Used when the vessel is in a sub-orbital trajectory.
+* `Orbiting` Used when the vessel is orbiting a body.
+* `Escaping` Used when the vessel is escaping from a body.
+* `Docked` Used when the vessel is docked to another.
+
+When a screen shot is taken, the `SITUATION_TEXT` element uses only one of the above values for its text, depending on the situation. This is useful for making more descriptive captions such as: `Landed on <Body>'s <LandingZone>` or `Flying at Mach <Mach> (<Speed> m/s) <Altitude> meters over <Body>'s <Biome>`.
+
+Note that just like `TEXT`, `SITUATION_TEXT` also supports rich text and placeholder values.
 
 ##### Picture
 
