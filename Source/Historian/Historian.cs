@@ -141,6 +141,12 @@ namespace KSEA.Historian
                 }
                 else
                 {
+                    if (!m_Configuration.PersistentCustomText)
+                    {
+                        m_Configuration.CustomText = "";
+                        m_Configuration.Save(Path.Combine(PluginDirectory, "Historian.cfg"));
+                    }
+
                     m_Active = false;
                 }
             }

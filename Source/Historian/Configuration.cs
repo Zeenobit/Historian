@@ -22,15 +22,13 @@ namespace KSEA.Historian
 {
     public class Configuration
     {
-        public class InvalidVersionException : Exception
-        {
-        }
-
-        private static readonly Version CurrentVersion = new Version("0.2");
+        private static readonly Version CurrentVersion = new Version("1.0");
         
         private string m_Layout = "";
         private bool m_EnableLauncherButton = true;
         private bool m_EnableToolbarButton = true;
+        private string m_CustomText = "";
+        private bool m_PersitentCustomText = false;
 
         public string Layout
         {
@@ -71,6 +69,32 @@ namespace KSEA.Historian
             }
         }
 
+        public string CustomText
+        {
+            get
+            {
+                return m_CustomText;
+            }
+
+            set
+            {
+                m_CustomText = value;
+            }
+        }
+
+        public bool PersistentCustomText
+        {
+            get
+            {
+                return m_PersitentCustomText;
+            }
+
+            set
+            {
+                m_PersitentCustomText = value;
+            }
+        }
+
         public static Configuration Load(string file)
         {
             try
@@ -80,17 +104,15 @@ namespace KSEA.Historian
 
                 var version = node.GetVersion("Version", new Version());
 
+                configuration.m_Layout = node.GetString("Layout", "Default");
+                configuration.m_EnableLauncherButton = node.GetBoolean("EnableLauncherButton", true);
+                configuration.m_EnableToolbarButton = node.GetBoolean("EnableToolbarButton", true);
+                configuration.m_CustomText = node.GetString("CustomText", "");
+                configuration.m_PersitentCustomText = node.GetBoolean("PersitentCustomText", false);
+
                 if (version != CurrentVersion)
                 {
-                    Historian.Print("Version mismatch detected on configuration file.");
-
-                    throw new InvalidVersionException();
-                }
-                else
-                {
-                    configuration.m_Layout = node.GetString("Layout", "Default");
-                    configuration.m_EnableLauncherButton = node.GetBoolean("EnableLauncherButton", true);
-                    configuration.m_EnableToolbarButton = node.GetBoolean("EnableToolbarButton", true);
+                    configuration.Save(file);
                 }
 
                 return configuration;
@@ -99,29 +121,20 @@ namespace KSEA.Historian
             {
                 Historian.Print("Failed to load configuration file '{0}'. Attempting recovery ...", file);
 
-                try
+                if (File.Exists(file))
                 {
-                    if (File.Exists(file))
-                    {
-                        File.Delete(file);
+                    File.Delete(file);
 
-                        var configuration = new Configuration();
-                        configuration.m_Layout = "Default";
-                        configuration.m_EnableLauncherButton = true;
-                        configuration.m_EnableToolbarButton = true;
-                        configuration.Save(file);
+                }
 
-                        return configuration;
-                    }
-                }
-                catch
-                {
-                    Historian.Print("Failed to overwrite invalid configuration file '{0}'.", file);
-                    throw;
-                }
+                var configuration = new Configuration();
+                configuration.m_Layout = "Default";
+                configuration.m_EnableLauncherButton = true;
+                configuration.m_EnableToolbarButton = true;
+                configuration.Save(file);
+
+                return configuration;
             }
-
-            return null;
         }
 
         public void Save(string file)
@@ -135,6 +148,8 @@ namespace KSEA.Historian
                 node.AddValue("Layout", m_Layout);
                 node.AddValue("EnableLauncherButton", m_EnableLauncherButton);
                 node.AddValue("EnableToolbarButton", m_EnableToolbarButton);
+                node.AddValue("CustomText", m_CustomText);
+                node.AddValue("PersitentCustomText", m_PersitentCustomText);
 
                 if (File.Exists(file))
                 {

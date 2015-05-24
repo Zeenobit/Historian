@@ -43,6 +43,8 @@ namespace KSEA.Historian
                 return new Picture();
             case "FLAG":
                 return new Flag();
+            case "SITUATION_TEXT":
+                return new SituationText();
             default:
                 return null;
             }

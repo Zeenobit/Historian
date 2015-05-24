@@ -1,7 +1,5 @@
 KSEA_HISTORIAN_LAYOUT
-{
-	Name = Alternative
-	
+{	
 	RECTANGLE
 	{
 		Anchor = 0.0,0.5

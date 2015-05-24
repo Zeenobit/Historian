@@ -29,6 +29,11 @@ namespace KSEA.Historian
         private int m_FontSize = 10;
         private FontStyle m_FontStyle = FontStyle.Normal;
 
+        protected void SetText(string text)
+        {
+            m_Text = text;
+        }
+
         protected override void OnDraw(Rect bounds)
         {
             var style = new GUIStyle(GUI.skin.label);
@@ -54,7 +59,7 @@ namespace KSEA.Historian
             m_FontStyle = node.GetEnum("FontStyle", FontStyle.Normal);
         }
 
-        private static string Parse(string text)
+        protected static string Parse(string text)
         {
             var ut = Planetarium.GetUniversalTime();
             var time = KSPUtil.GetKerbinDateFromUT((int) ut);
@@ -186,7 +191,7 @@ namespace KSEA.Historian
 
                 if (vessel != null)
                 {
-                    value = FlightGlobals.ActiveVessel.latitude.ToString("F5");
+                    value = vessel.latitude.ToString("F3");
                 }
 
                 text = text.Replace("<Latitude>", value);
@@ -198,7 +203,7 @@ namespace KSEA.Historian
 
                 if (vessel != null)
                 {
-                    value = FlightGlobals.ActiveVessel.longitude.ToString("F5");
+                    value = vessel.longitude.ToString("F3");
                 }
 
                 text = text.Replace("<Longitude>", value);
@@ -210,10 +215,57 @@ namespace KSEA.Historian
 
                 if (vessel != null)
                 {
-                    value = FlightGlobals.ActiveVessel.altitude.ToString("F5");
+                    value = vessel.altitude.ToString("F1");
                 }
 
                 text = text.Replace("<Altitude>", value);
+            }
+
+            if (text.Contains("<Mach>"))
+            {
+                var value = "";
+
+                if (vessel != null)
+                {
+                    value = vessel.mach.ToString("F1");
+                }
+
+                text = text.Replace("<Mach>", value);
+            }
+
+            if (text.Contains("<LandingZone>"))
+            {
+                var value = "";
+
+                if (vessel != null)
+                {
+                    value = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(vessel.landedAt.ToLower());
+                }
+
+                text = text.Replace("<LandingZone>", value);
+            }
+
+            if (text.Contains("<Speed>"))
+            {
+                var value = "";
+
+                if (vessel != null)
+                {
+                    value = vessel.srfSpeed.ToString("F1");
+                }
+
+                text = text.Replace("<Speed>", value);
+            }
+
+            if (text.Contains("<Custom>"))
+            {
+                var value = Historian.Instance.GetConfiguration().CustomText;
+
+                // No infinite recursion for you.
+                value = value.Replace("<Custom>", "");
+                value = Parse(value);
+
+                text = text.Replace("<Custom>", value);
             }
 
             return text;

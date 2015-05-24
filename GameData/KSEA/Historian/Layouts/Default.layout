@@ -1,11 +1,9 @@
 KSEA_HISTORIAN_LAYOUT
 {
-	Name = Default
-	
 	RECTANGLE
 	{
 		Anchor = 0.0,0.5
-		Size = 1.0,0.125
+		Size = 1.0,0.15
 		Position = 0.0,0.85
 		Color = 0.0,0.0,0.0,0.5
 	}
@@ -22,9 +20,9 @@ KSEA_HISTORIAN_LAYOUT
 	{
 		Anchor = 0.0,0.5
 		Position = 0.25,0.85
-		Size = 0.5,0.1
+		Size = 0.5,0.125
 		Color = 1.0,1.0,1.0,1.0
-		Text = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b> (<T+>)<N><size=12><Situation> @ <Body> (<Biome>, <Latitude>° <Longitude>°) </size>
+		Text = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b> (<T+>)<N><size=12><Situation> @ <Body> (<Biome>)<N><Custom></size>
 		TextAnchor = MiddleLeft
 		FontSize = 12
 		FontStyle = Normal

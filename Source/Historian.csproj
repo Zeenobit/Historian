@@ -53,6 +53,7 @@
     <Compile Include="Historian\Picture.cs" />
     <Compile Include="Historian\Rectangle.cs" />
     <Compile Include="Historian\Singleton.cs" />
+    <Compile Include="Historian\SituationText.cs" />
     <Compile Include="Historian\Text.cs" />
     <Compile Include="Historian\ToolbarButton.cs" />
     <Compile Include="Historian\ToolbarWrapper.cs" />

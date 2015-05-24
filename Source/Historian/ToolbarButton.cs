@@ -30,6 +30,8 @@ namespace KSEA.Historian
 
                 m_Button = toolbar.add("KSEA_Historian", "Button");
 
+                m_Button.Text = "Historian";
+                m_Button.ToolTip = "Click to open Historian configuration window.";
                 m_Button.TexturePath = "KSEA/Historian/Historian_Toolbar";
                 m_Button.OnClick += Button_OnClick;
 

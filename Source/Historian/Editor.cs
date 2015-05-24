@@ -35,7 +35,7 @@ namespace KSEA.Historian
             m_LauncherButton = new LauncherButton();
             m_ToolbarButton = new ToolbarButton();
 
-            m_Position = new Rect(0.5f * Screen.width - 200.0f, 0.5f * Screen.height - 130.0f, 400.0f, 260.0f);
+            m_Position = new Rect(0.5f * Screen.width - 200.0f, 0.5f * Screen.height - 200.0f, 400.0f, 400.0f);
 
             m_NextButtonTexture = GameDatabase.Instance.GetTexture("KSEA/Historian/Historian_Button_Next", false);
             m_PreviousButtonTexture = GameDatabase.Instance.GetTexture("KSEA/Historian/Historian_Button_Previous", false);
@@ -92,6 +92,7 @@ namespace KSEA.Historian
         {
             GUI.skin = HighLogic.Skin;
             var historian = Historian.Instance;
+            var configuration = historian.GetConfiguration();
 
             GUILayout.BeginVertical();
 
@@ -159,6 +160,12 @@ namespace KSEA.Historian
 
             GUILayout.Space(20);
 
+            GUILayout.Label("Custom Text:");
+            configuration.CustomText = GUILayout.TextArea(configuration.CustomText, GUILayout.Height(60));
+            configuration.PersistentCustomText = GUILayout.Toggle(configuration.PersistentCustomText, "Persistent Custom Text");
+
+            GUILayout.Space(20);
+
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
 
@@ -169,8 +176,6 @@ namespace KSEA.Historian
 
             if (GUILayout.Button("Save", GUILayout.Width(100.0f)))
             {
-                var configuration = historian.GetConfiguration();
-
                 configuration.Layout = historian.GetCurrentLayoutName();
                 configuration.EnableLauncherButton = m_EnableLauncherButton;
                 configuration.EnableToolbarButton = m_EnableToolberButton;
