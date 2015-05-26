@@ -215,7 +215,11 @@ namespace KSEA.Historian
 
                 if (vessel != null)
                 {
-                    value = vessel.altitude.ToString("F1");
+                    double altitude;
+                    string unit;
+                    ShortenDistance(vessel.altitude, out altitude, out unit);
+
+                    value = string.Format("{0:F1} {1}", altitude, unit);
                 }
 
                 text = text.Replace("<Altitude>", value);
@@ -239,7 +243,14 @@ namespace KSEA.Historian
 
                 if (vessel != null)
                 {
-                    value = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(vessel.landedAt.ToLower());
+                    value = vessel.landedAt;
+
+                    if (string.IsNullOrEmpty(value))
+                    {
+                        value = ScienceUtil.GetExperimentBiome(FlightGlobals.ActiveVessel.mainBody, FlightGlobals.ActiveVessel.latitude, FlightGlobals.ActiveVessel.longitude);
+                    }
+
+                    value = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower());
                 }
 
                 text = text.Replace("<LandingZone>", value);
@@ -251,7 +262,11 @@ namespace KSEA.Historian
 
                 if (vessel != null)
                 {
-                    value = vessel.srfSpeed.ToString("F1");
+                    double speed;
+                    string unit;
+                    ShortenDistance(vessel.srfSpeed, out speed, out unit);
+
+                    value = string.Format("{0:F1} {1}/s", speed, unit);
                 }
 
                 text = text.Replace("<Speed>", value);
@@ -269,6 +284,22 @@ namespace KSEA.Historian
             }
 
             return text;
+        }
+
+        protected static void ShortenDistance(double meters, out double result, out string unit)
+        {
+            string[] units = new string[]{ "m", "km", "Mm", "Gm", "Tm", "Pm" };
+            double d = meters;
+            int i = 0;
+
+            while (d > 1000.0)
+            {
+                d /= 1000.0f;
+                ++i;
+            }
+
+            result = d;
+            unit = units[i];
         }
     }
 }

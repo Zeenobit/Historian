@@ -29,8 +29,8 @@ KSEA_HISTORIAN_LAYOUT
 		Landed = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b><N><T+><N><size=12>Landed on <Body>'s <LandingZone><N><Custom></size>
 		Splashed = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b><N><T+><N><size=12>Splashed in <Body>'s Waters<N><Custom></size>
 		Prelaunch = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b><N><T+><N><size=12>Preparing for launch from <Body><N><Custom></size>
-		Flying = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b><N><T+><N><size=12>Flying at Mach <Mach> (<Speed> m/s) <Altitude> meters over <Body>'s <Biome><N><Custom></size>
-		SubOrbital = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b><N><T+><N><size=12>Flying in a sub-orbital trajectory <Altitude> meters over <Body><N><Custom></size>
+		Flying = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b><N><T+><N><size=12>Flying at Mach <Mach> (<Speed>) <Altitude> over <Body>'s <Biome><N><Custom></size>
+		SubOrbital = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b><N><T+><N><size=12>Flying in a sub-orbital trajectory <Altitude> over <Body><N><Custom></size>
 		Orbiting = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b><N><T+><N><size=12>Orbiting around <Body><N><Custom></size>
 		Escaping = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b><N><T+><N><size=12>Escaping from <Body><N><Custom></size>
 		Docked = <size=22><b><Vessel></b></size><N><size=8><N></size><b><UT></b><N><T+><N><size=12>Docked at <Body><N><Custom></size>
