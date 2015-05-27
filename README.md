@@ -85,10 +85,10 @@ The following pre-defined placeholder values can be used inside a text element. 
 * `<Biome>` Current biome of the active vessel based on its location (Only available in Flight Mode). Example: _Shores_
 * `<Latitude>` Latitude of the active vessel relative to the main body (Only available in Flight Mode)
 * `<Longitude>` Longitude of the active vessel relative to the main body (Only available in Flight Mode)
-* `<Altitude>` Altitude of the active vessel relative to the sea level of the main body (Only available in Flight Mode)
+* `<Altitude>` Altitude of the active vessel relative to the sea level of the main body in the most appropriate unit (Only available in Flight Mode). The unit is also included as of version 1.0.1.
 * `<Mach>` The current Mach number of the active vessel (Only available in Flight Mode).
 * `<LandingZone>` The name of the current location the vessel is landed at (Only available in Flight Mode). Example: _Launchpad_
-* `<Speed>` Surface speed of the active vessel  in m/s (Only available in Flight Mode).
+* `<Speed>` Surface speed of the active vessel in the most appropriate unit (Only available in Flight Mode). The unit is also included as of version 1.0.1.
 * `<Custom>` The current value of the Custom Text. You can set this value using the configuration window. If custom text is not persistent (default), it will be cleared after the next screenshot.
 
 Note that all placeholder values are case-sensitive.
@@ -107,7 +107,7 @@ A `SITUATION_TEXT` element behaves similar to the `TEXT` element. It has all of 
 * `Escaping` Used when the vessel is escaping from a body.
 * `Docked` Used when the vessel is docked to another.
 
-When a screen shot is taken, the `SITUATION_TEXT` element uses only one of the above values for its text, depending on the situation. This is useful for making more descriptive captions such as: `Landed on <Body>'s <LandingZone>` or `Flying at Mach <Mach> (<Speed> m/s) <Altitude> meters over <Body>'s <Biome>`.
+When a screen shot is taken, the `SITUATION_TEXT` element uses only one of the above values for its text, depending on the situation. This is useful for making more descriptive captions such as: `Landed on <Body>'s <LandingZone>` or `Flying at Mach <Mach> (<Speed>) <Altitude> over <Body>'s <Biome>`.
 
 Note that just like `TEXT`, `SITUATION_TEXT` also supports rich text and placeholder values.
 
