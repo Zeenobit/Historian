@@ -38,6 +38,7 @@ The following element types are currently supported by Historian:
 * `TEXT` Draws some text on the screen. Supports rich text and value placeholders.
 * `PICTURE` Renders a 2D image onto the screen.
 * `FLAG` Renders the current mission's flag onto the screen.
+* `SITUATION_TEXT` Selects a different text to display based on flight situation and renders it on the screen much like `TEXT`.
 
 ##### Common Properties
 
