@@ -90,6 +90,7 @@ The following pre-defined placeholder values can be used inside a text element. 
 * `<Mach>` The current Mach number of the active vessel (Only available in Flight Mode).
 * `<LandingZone>` The name of the current location the vessel is landed at (Only available in Flight Mode). Example: _Launchpad_
 * `<Speed>` Surface speed of the active vessel in the most appropriate unit (Only available in Flight Mode). The unit is also included as of version 1.0.1.
+* `<Crew>` Name of all the crew members, separated by commas, on the active vessel (Only available in Flight Mode). If the vessel is a probe, it will display "Unmanned". If the vessel is space debris, it will display "N/A". Example: _Jebediah Kerman, Bill Kerman_
 * `<Custom>` The current value of the Custom Text. You can set this value using the configuration window. If custom text is not persistent (default), it will be cleared after the next screenshot.
 
 Note that all placeholder values are case-sensitive.
