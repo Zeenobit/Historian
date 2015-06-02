@@ -33,6 +33,7 @@ namespace KSEA.Historian
         private bool m_Suppressed = false;
         private Configuration m_Configuration = null;
         private Editor m_Editor = null;
+        private bool m_SuppressEditorWindow = false;
 
         public bool Suppressed
         {
@@ -126,6 +127,11 @@ namespace KSEA.Historian
             m_CurrentLayoutIndex = FindLayoutIndex(m_Configuration.Layout);
             Print("Current Layout Index {0}", m_CurrentLayoutIndex);
             m_Editor = new Editor(m_Configuration);
+
+            GameEvents.onHideUI.Add(Game_OnHideGUI);
+            GameEvents.onShowUI.Add(Game_OnShowGUI);
+            GameEvents.onGamePause.Add(Game_OnPause);
+            GameEvents.onGameUnpause.Add(Game_OnUnpause);
         }
 
         void Update()
@@ -160,7 +166,33 @@ namespace KSEA.Historian
                 layout.Draw();
             }
 
-            m_Editor.Draw();
+            if (!m_SuppressEditorWindow)
+            {
+                m_Editor.Draw();
+            }
+        }
+
+        private void Game_OnHideGUI()
+        {
+            if (!m_Configuration.PersistentConfigurationWindow)
+            {
+                m_SuppressEditorWindow = true;
+            }
+        }
+
+        private void Game_OnShowGUI()
+        {
+            m_SuppressEditorWindow = false;
+        }
+
+        private void Game_OnUnpause()
+        {
+            m_SuppressEditorWindow = false;
+        }
+
+        private void Game_OnPause()
+        {
+            m_SuppressEditorWindow = true;
         }
 
         private int FindLayoutIndex(string name)

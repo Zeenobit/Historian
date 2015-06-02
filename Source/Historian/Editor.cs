@@ -35,7 +35,7 @@ namespace KSEA.Historian
             m_LauncherButton = new LauncherButton();
             m_ToolbarButton = new ToolbarButton();
 
-            m_Position = new Rect(0.5f * Screen.width - 200.0f, 0.5f * Screen.height - 200.0f, 400.0f, 400.0f);
+            m_Position = new Rect(0.5f * Screen.width - 200.0f, 0.5f * Screen.height - 250.0f, 400.0f, 450.0f);
 
             m_NextButtonTexture = GameDatabase.Instance.GetTexture("KSEA/Historian/Historian_Button_Next", false);
             m_PreviousButtonTexture = GameDatabase.Instance.GetTexture("KSEA/Historian/Historian_Button_Previous", false);
@@ -98,6 +98,8 @@ namespace KSEA.Historian
 
             historian.Suppressed = GUILayout.Toggle(historian.Suppressed, "Suppressed");
             historian.AlwaysActive = GUILayout.Toggle(historian.AlwaysActive, "Always Active");
+
+            configuration.PersistentConfigurationWindow = GUILayout.Toggle(configuration.PersistentConfigurationWindow, "Always Display Configuration Window");
 
             m_EnableLauncherButton = GUILayout.Toggle(m_EnableLauncherButton, "Use Stock Launcher");
             m_EnableToolberButton = GUILayout.Toggle(m_EnableToolberButton, "Use Blizzy's Toolbar");

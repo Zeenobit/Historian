@@ -22,13 +22,14 @@ namespace KSEA.Historian
 {
     public class Configuration
     {
-        private static readonly Version CurrentVersion = new Version("1.0.1");
+        private static readonly Version CurrentVersion = new Version("1.0.2");
         
         private string m_Layout = "";
         private bool m_EnableLauncherButton = true;
         private bool m_EnableToolbarButton = true;
         private string m_CustomText = "";
-        private bool m_PersitentCustomText = false;
+        private bool m_PersistentCustomText = false;
+        private bool m_PersistentConfigurationWindow = true;
 
         public string Layout
         {
@@ -86,12 +87,25 @@ namespace KSEA.Historian
         {
             get
             {
-                return m_PersitentCustomText;
+                return m_PersistentCustomText;
             }
 
             set
             {
-                m_PersitentCustomText = value;
+                m_PersistentCustomText = value;
+            }
+        }
+
+        public bool PersistentConfigurationWindow
+        {
+            get
+            {
+                return m_PersistentConfigurationWindow;
+            }
+
+            set
+            {
+                m_PersistentConfigurationWindow = value;
             }
         }
 
@@ -108,7 +122,8 @@ namespace KSEA.Historian
                 configuration.m_EnableLauncherButton = node.GetBoolean("EnableLauncherButton", true);
                 configuration.m_EnableToolbarButton = node.GetBoolean("EnableToolbarButton", true);
                 configuration.m_CustomText = node.GetString("CustomText", "");
-                configuration.m_PersitentCustomText = node.GetBoolean("PersitentCustomText", false);
+                configuration.m_PersistentCustomText = node.GetBoolean("PersistentCustomText", false);
+                configuration.m_PersistentConfigurationWindow = node.GetBoolean("PersistentConfigurationWindow", true);
 
                 if (version != CurrentVersion)
                 {
@@ -128,9 +143,14 @@ namespace KSEA.Historian
                 }
 
                 var configuration = new Configuration();
+
                 configuration.m_Layout = "Default";
                 configuration.m_EnableLauncherButton = true;
                 configuration.m_EnableToolbarButton = true;
+                configuration.m_CustomText = "";
+                configuration.m_PersistentCustomText = false;
+                configuration.m_PersistentConfigurationWindow = true;
+
                 configuration.Save(file);
 
                 return configuration;
@@ -149,7 +169,8 @@ namespace KSEA.Historian
                 node.AddValue("EnableLauncherButton", m_EnableLauncherButton);
                 node.AddValue("EnableToolbarButton", m_EnableToolbarButton);
                 node.AddValue("CustomText", m_CustomText);
-                node.AddValue("PersitentCustomText", m_PersitentCustomText);
+                node.AddValue("PersistentCustomText", m_PersistentCustomText);
+                node.AddValue("PersistentConfigurationWindow", m_PersistentConfigurationWindow);
 
                 if (File.Exists(file))
                 {

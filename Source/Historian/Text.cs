@@ -17,6 +17,7 @@
 
 using System;
 using System.Globalization;
+using System.Linq;
 using UnityEngine;
 
 namespace KSEA.Historian
@@ -249,6 +250,11 @@ namespace KSEA.Historian
                     {
                         value = ScienceUtil.GetExperimentBiome(FlightGlobals.ActiveVessel.mainBody, FlightGlobals.ActiveVessel.latitude, FlightGlobals.ActiveVessel.longitude);
                     }
+                    else
+                    {
+                        // http://forum.kerbalspaceprogram.com/threads/123896-Human-Friendly-Landing-Zone-Title
+                        value = Vessel.GetLandedAtString(vessel.landedAt);
+                    }
 
                     value = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower());
                 }
@@ -270,6 +276,32 @@ namespace KSEA.Historian
                 }
 
                 text = text.Replace("<Speed>", value);
+            }
+
+            if (text.Contains("<Crew>"))
+            {
+                var value = "";
+
+                if (vessel != null)
+                {
+                    if (vessel.GetCrewCount() > 0)
+                    {
+                        value = string.Join(", ", vessel.GetVesselCrew().Select(item => item.name).ToArray());
+                    }
+                    else
+                    {
+                        if (vessel.isCommandable)
+                        {
+                            value = "Unmanned";
+                        }
+                        else
+                        {
+                            value = "N/A";
+                        }
+                    }
+                }
+
+                text = text.Replace("<Crew>", value + " " + Vessel.GetSituationString(vessel));
             }
 
             if (text.Contains("<Custom>"))
