@@ -53,7 +53,7 @@ namespace KSEA.Historian
                          ApplicationLauncher.AppScenes.TRACKSTATION |
                          ApplicationLauncher.AppScenes.VAB;
 
-            m_Button = launcher.AddModApplication(Button_OnTrue, Button_OnFalse, null, null, null, null, scenes, m_NormalTexture);
+            m_Button = launcher.AddModApplication(Button_OnTrue, Button_OnFalse, null, null, null, null, scenes, m_NormalTexture);            
 
             Update();
 

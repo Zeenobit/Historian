@@ -55,6 +55,7 @@ namespace KSEA.Historian
             {
                 m_ToolbarButton.OnTrue += Button_OnTrue;
                 m_ToolbarButton.OnFalse += Button_OnFalse;
+                m_ToolbarButton.OnAlternateClick += Button_OnAlternateClick;
 
                 m_ToolbarButton.Register();
             }
@@ -201,6 +202,13 @@ namespace KSEA.Historian
         private void Button_OnFalse()
         {
             Close();
+        }
+
+        private void Button_OnAlternateClick()
+        {
+            var historian = Historian.Instance;
+
+            historian.Suppressed = !historian.Suppressed;
         }
     }
 }

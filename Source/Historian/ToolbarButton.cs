@@ -10,6 +10,7 @@ namespace KSEA.Historian
 
         public event Callback OnTrue = delegate { };
         public event Callback OnFalse = delegate { };
+        public event Callback OnAlternateClick = delegate { };
 
         public bool IsRegistered
         {
@@ -65,15 +66,34 @@ namespace KSEA.Historian
 
         public void Button_OnClick(ClickEvent e)
         {
-            m_State = !m_State;
+            switch (e.MouseButton)
+            {
+            case 0: // Left Click
 
-            if (m_State)
-            {
-                OnTrue();
-            }
-            else
-            {
-                OnFalse();
+                m_State = !m_State;
+
+                if (m_State)
+                {
+                    OnTrue();
+                }
+                else
+                {
+                    OnFalse();
+                }
+
+                break;
+
+            case 1: // Right Click
+
+                OnAlternateClick();
+                Update();
+
+                break;
+
+            case 2: // Middle Click
+            default:
+
+                break;
             }
         }
     }
