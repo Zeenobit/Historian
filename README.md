@@ -14,7 +14,7 @@ Historian is a screenshot utility mod for Kerbal Space Program that adds fully c
 
 You can open the Historian configuration window by using either the stock application launcher, or [Blizzy's Toolbar](http://forum.kerbalspaceprogram.com/threads/60863).
 
-* __Suppressed__: When suppressed, Historian will not display the overlay when taking screenshots. In the latest version you can also right click on Blizzy's Toolbar button to toggle this option without having to open the configuration window.
+* __Suppressed__: When suppressed, Historian will not display the overlay when taking screenshots. As of version 1.1.0, you can also right click on Blizzy's Toolbar button to toggle this option without having to open the configuration window.
 * __Always Active__: If this is turned on, the overlay will always show on top of the game. This is useful when editting layouts.
 * __Load__: Reloads all layouts while the game is running.
 * __Save__: Saves the current layout as the default layout (selected automatically everytime you launch KSP).
