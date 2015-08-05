@@ -21,10 +21,11 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
+
 namespace KSEA.Historian
 {
     [KSPAddon(KSPAddon.Startup.MainMenu, true)]
-    public class Historian : Singleton<Historian>
+	public class Historian : Singleton<Historian>
     {
         private List<Layout> m_Layouts = new List<Layout>();
         private int m_CurrentLayoutIndex = -1;
@@ -133,6 +134,10 @@ namespace KSEA.Historian
             GameEvents.onGamePause.Add(Game_OnPause);
             GameEvents.onGameUnpause.Add(Game_OnUnpause);
         }
+		public void set_m_Active()
+		{
+			m_Active = true;
+		}
 
         void Update()
         {
