@@ -67,19 +67,27 @@ A `TEXT` element renders a string of text.
 * `FontSize` Size of the font. Note that rich text format specifiers can override this. _Default: 10_
 * `FontStyle` Style of the font. Supports any one of these values: `Normal`, `Bold`, `Italic`, and `BoldAndItalic`. Note that rich text format specifiers can override this. _Default: Normal_
 * `Color` Color of the font. Note that rich text format specifiers can override this. _Default: 1.0,1.0,1.0,1.0_
+* `CalendarMode` Either `Kerbin` for default style calendar (6 hour days) or `Earth` for 'real' 24 hour days. Should match calendar setting chosen in game _Default: Kerbin_
+* `BaseYear` Offset added to year values and formatted dates. _Default: 1 (Kerbin CalendarMode) or 1940 (Earth CalendarMode)_
+* `DateFormat` A C# format string for the <Date> element. *NOTE: Earth dates only* Example: `dd/MM/yyyy` for UK style short date. _Default: CurrentCulture.LongDatePattern_
+* `PilotColor` Unity richtext color to apply to pilot names in <Crew> or <CrewShort> elements. _Default: clear_
+* `EngineerColor` Unity richtext color to apply to engineer names in <Crew> or <CrewShort> elements. _Default: clear_
+* `ScientistColor` Unity richtext color to apply to scientist names in <Crew> or <CrewShort> elements. _Default: clear_
+* `TouristColor` Unity richtext color to apply to tourist names in <Crew> or <CrewShort> elements. _Default: clear_
 
 Refer to [Unity's Manual](http://docs.unity3d.com/Manual/StyledText.html) for details on Rich Text formatting syntax.
 
 The following pre-defined placeholder values can be used inside a text element. These placeholders will be replaced with their corresponding values when a screenshot is taken.
 
 * `<N>` Inserts a new line.
+* `<Date>` Formatted date string. Only for `CalendarMode=Earth`, same as <UT> for `Kerbin` dates.
 * `<UT>` KSP Universal Time. Example: _Y12, D29, 2:02:12_
-* `<Year>` Current year in Kerbal time
-* `<Day>` Current day in Kerbal time
-* `<Hour>` Current hour in Kerbal time
-* `<Minute>` Current minute in Kerbal time
-* `<Second>` Current second in Kerbal time
-* `<T+>` Current mission time for the active vessel, in Kerbal time (Only available in Flight Mode). Example: _T+ 2y, 23d, 02:04:12_
+* `<Year>` Current year in chosen `CalendarMode`
+* `<Day>` Current day in chosen `CalendarMode`
+* `<Hour>` Current hour in chosen `CalendarMode`
+* `<Minute>` Current minute in chosen `CalendarMode`
+* `<Second>` Current second in chosen `CalendarMode`
+* `<T+>` Current mission time for the active vessel, in chosen `CalendarMode` (Only available in Flight Mode). Example: _T+ 2y, 23d, 02:04:12_
 * `<Vessel>` Name of the active vessel or Kerbal (Only available in Flight Mode). Example: _Jebediah Kerman_, _Kerbal X_
 * `<Body>` Name of the main body (Only available in Flight Mode). Example: _Kerbin_
 * `<Situation>` Current situation of the active vessel (Only available in Flight Mode). Example: _Flying_, _Orbiting_
@@ -90,7 +98,16 @@ The following pre-defined placeholder values can be used inside a text element. 
 * `<Mach>` The current Mach number of the active vessel (Only available in Flight Mode).
 * `<LandingZone>` The name of the current location the vessel is landed at (Only available in Flight Mode). Example: _Launchpad_
 * `<Speed>` Surface speed of the active vessel in the most appropriate unit (Only available in Flight Mode). The unit is also included as of version 1.0.1.
+* `<Ap>` Apoapsis of current orbit (or sub-orbital trajectory) including unit. 
+* `<Pe>` Periapsis of current orbit (or sub-orbital trajectory) including unit. 
+* `<Inc>` Inclination of current orbit including `°` symbol.
+* `<LAN>` Longtitude of Ascending Node including `°` symbol.
+* `<ArgPe>` Argument of Periapsis including `°` symbol.
+* `<Ecc>` Eccentricity to 3 decimal places.
+* `<Period>` Orbital period.
+* `<Orbit>` Shorthand for `<Ap> x <Pe>`: Example 120.7 km x 91.3 km.
 * `<Crew>` Name of all the crew members, separated by commas, on the active vessel (Only available in Flight Mode). If the vessel is a probe, it will display "Unmanned". If the vessel is space debris, it will display "N/A". Example: _Jebediah Kerman, Bill Kerman_
+* `<CrewShort>` Same as above but assumes all crew members have last name of Kerman and only displays it once at end of list. Example: _Jebediah, Bill, Bob Kerman_
 * `<Custom>` The current value of the Custom Text. You can set this value using the configuration window. If custom text is not persistent (default), it will be cleared after the next screenshot.
 
 Note that all placeholder values are case-sensitive.

@@ -433,11 +433,88 @@ namespace KSEA.Historian
                     var orbit = vessel.GetOrbit();
                     double inc = orbit.inclination;
 
-                    value = string.Format("{0:F1} {1}°", inc);
+                    value = string.Format("{0:F1}°", inc);
                 }
 
                 text = text.Replace("<Inc>", value);
             }
+
+            if (text.Contains("<LAN>"))
+            {
+                var value = "";
+                if (vessel != null)
+                {
+                    var orbit = vessel.GetOrbit();
+                    double lan = orbit.LAN;
+
+                    value = string.Format("{0:F1}°", lan);
+                }
+
+                text = text.Replace("<LAN>", value);
+            }
+
+            if (text.Contains("<ArgPe>"))
+            {
+                var value = "";
+                if (vessel != null)
+                {
+                    var orbit = vessel.GetOrbit();
+                    double argPe = orbit.argumentOfPeriapsis;
+
+                    value = string.Format("{0:F1}°", argPe);
+                }
+
+                text = text.Replace("<ArgPe>", value);
+            }
+
+            if (text.Contains("<Ecc>"))
+            {
+                var value = "";
+                if (vessel != null)
+                {
+                    var orbit = vessel.GetOrbit();
+                    double ecc = orbit.eccentricity;
+
+                    value = string.Format("{0:F3}", ecc);
+                }
+
+                text = text.Replace("<Ecc>", value);
+            }
+
+            if (text.Contains("<Period>"))
+            {
+                var value = "";
+                if (vessel != null)
+                {
+                    var orbit = vessel.GetOrbit();
+                    var period = orbit.period;
+                    int[] t; 
+
+                    if (m_calendarMode == CalendarMode.Kerbin)
+                    {
+                        t = KSPUtil.GetKerbinDateFromUT((int)period);
+                    }
+                    else
+                    {
+                        t = KSPUtil.GetEarthDateFromUT((int)period);
+                    }
+                    if (t[4] > 0)
+                    {
+                        value = string.Format("{0}y, {1}d, {2:D2}:{3:D2}:{4:D2}", t[4] + 1, t[3] + 1, t[2], t[1], t[0]);
+                    }
+                    else if (t[3] > 0)
+                    {
+                        value = string.Format("{1}d, {2:D2}:{3:D2}:{4:D2}", t[4] + 1, t[3] + 1, t[2], t[1], t[0]);
+                    }
+                    else
+                    {
+                        value = string.Format("{2:D2}:{3:D2}:{4:D2}", t[4] + 1, t[3] + 1, t[2], t[1], t[0]);
+                    }
+                }
+
+                text = text.Replace("<Period>", value);
+            }
+
 
             if (text.Contains("<Orbit>"))
             {
