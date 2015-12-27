@@ -4,6 +4,8 @@
 
 Historian is a screenshot utility mod for Kerbal Space Program that adds fully configurable and dynamic captions and overlay graphics to screenshots to better describe the context of screenshots and record your Kerbal adventures.
 
+## Extended development version by Aelfhe1m
+
 ## Installation
 
 1. Download the latest version of Historian from either [Kerbal Stuff](https://kerbalstuff.com/mod/821/Historian) or [GitHub](https://github.com/Zeenobit/Historian/releases).
@@ -96,6 +98,7 @@ The following pre-defined placeholder values can be used inside a text element. 
 * `<Longitude>` Longitude of the active vessel relative to the main body (Only available in Flight Mode)
 * `<Altitude>` Altitude of the active vessel relative to the sea level of the main body in the most appropriate unit (Only available in Flight Mode). The unit is also included as of version 1.0.1.
 * `<Mach>` The current Mach number of the active vessel (Only available in Flight Mode).
+* `<Heading>` The current compass heading of the active vessel (Only available in Flight Mode).
 * `<LandingZone>` The name of the current location the vessel is landed at (Only available in Flight Mode). Example: _Launchpad_
 * `<Speed>` Surface speed of the active vessel in the most appropriate unit (Only available in Flight Mode). The unit is also included as of version 1.0.1.
 * `<Ap>` Apoapsis of current orbit (or sub-orbital trajectory) including unit. 
