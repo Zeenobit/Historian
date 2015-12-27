@@ -80,7 +80,7 @@ Refer to [Unity's Manual](http://docs.unity3d.com/Manual/StyledText.html) for de
 The following pre-defined placeholder values can be used inside a text element. These placeholders will be replaced with their corresponding values when a screenshot is taken.
 
 * `<N>` Inserts a new line.
-* `<Date>` Formatted date string. Only for `CalendarMode=Earth`, same as <UT> for `Kerbin` dates.
+* `<Date>` Formatted date string. Only for `CalendarMode=Earth`, same as `<UT>` for `Kerbin` dates.
 * `<UT>` KSP Universal Time. Example: _Y12, D29, 2:02:12_
 * `<Year>` Current year in chosen `CalendarMode`
 * `<Day>` Current day in chosen `CalendarMode`
