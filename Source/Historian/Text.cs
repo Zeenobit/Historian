@@ -211,7 +211,7 @@ namespace KSEA.Historian
 
                 if (vessel != null)
                 {
-                    var biome = ScienceUtil.GetExperimentBiome(FlightGlobals.ActiveVessel.mainBody, FlightGlobals.ActiveVessel.latitude, FlightGlobals.ActiveVessel.longitude);
+                    var biome = ScienceUtil.GetExperimentBiome(vessel.mainBody, vessel.latitude, vessel.longitude);
                     value = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(biome.ToLower());
                 }
 
@@ -270,6 +270,11 @@ namespace KSEA.Historian
                 text = text.Replace("<Mach>", value);
             }
 
+            if (text.Contains("<Heading>"))
+            {
+                text = text.Replace("<Heading>", FlightGlobals.ship_heading.ToString("F1"));
+            }
+
             if (text.Contains("<LandingZone>"))
             {
                 var value = "";
@@ -280,7 +285,7 @@ namespace KSEA.Historian
 
                     if (string.IsNullOrEmpty(value))
                     {
-                        value = ScienceUtil.GetExperimentBiome(FlightGlobals.ActiveVessel.mainBody, FlightGlobals.ActiveVessel.latitude, FlightGlobals.ActiveVessel.longitude);
+                        value = ScienceUtil.GetExperimentBiome(vessel.mainBody, vessel.latitude, vessel.longitude);
                     }
                     else
                     {
@@ -293,6 +298,8 @@ namespace KSEA.Historian
 
                 text = text.Replace("<LandingZone>", value);
             }
+
+            
 
             if (text.Contains("<Speed>"))
             {
@@ -359,24 +366,28 @@ namespace KSEA.Historian
             }
 
             if (text.Contains("<Pilots>"))
-            {
-                text = text.Replace("<Pilots>", TraitColor("Pilot") + CrewByTrait(vessel, "Pilot") + "</color>");
-            }
+                text = text.Replace("<Pilots>", TraitColor("Pilot") + CrewByTrait(vessel, "Pilot", false, false) + "</color>");
 
             if (text.Contains("<Engineers>"))
-            {
-                text = text.Replace("<Engineers>", TraitColor("Engineer") + CrewByTrait(vessel, "Engineer") + "</color>");
-            }
+                text = text.Replace("<Engineers>", TraitColor("Engineer") + CrewByTrait(vessel, "Engineer", false, false) + "</color>");
 
             if (text.Contains("<Scientists>"))
-            {
-                text = text.Replace("<Scientists>", TraitColor("Scientist") + CrewByTrait(vessel, "Scientist") + "</color>");
-            }
+                text = text.Replace("<Scientists>", TraitColor("Scientist") + CrewByTrait(vessel, "Scientist", false, false) + "</color>");
 
             if (text.Contains("<Tourists>"))
-            {
-                text = text.Replace("<Tourists>", TraitColor("Tourist") + CrewByTrait(vessel, "Tourist") + "</color>");
-            }
+                text = text.Replace("<Tourists>", TraitColor("Tourist") + CrewByTrait(vessel, "Tourist", false, false) + "</color>");
+
+            if (text.Contains("<PilotsList>"))
+                text = text.Replace("<PilotsList>", TraitColor("Pilot") + CrewByTrait(vessel, "Pilot", false, true) + "</color>");
+
+            if (text.Contains("<EngineersList>"))
+                text = text.Replace("<EngineersList>", TraitColor("Engineer") + CrewByTrait(vessel, "Engineer", false, true) + "</color>");
+
+            if (text.Contains("<ScientistsList>"))
+                text = text.Replace("<ScientistsList>", TraitColor("Scientist") + CrewByTrait(vessel, "Scientist", false, true) + "</color>");
+
+            if (text.Contains("<TouristsList>"))
+                text = text.Replace("<TouristsList>", TraitColor("Tourist") + CrewByTrait(vessel, "Tourist", false, true) + "</color>");
 
 
             if (text.Contains("<Custom>"))
@@ -538,7 +549,7 @@ namespace KSEA.Historian
             return text;
         }
 
-        protected string CrewByTrait(Vessel vessel, string trait)
+        protected string CrewByTrait(Vessel vessel, string trait, bool isShort, bool isList)
         {
             var value = "";
 
@@ -547,12 +558,19 @@ namespace KSEA.Historian
 
                 var crewMembers = vessel.GetVesselCrew()
                     .Where(member => member.trait == trait)
-                    .Select(member => member.name.Replace(" Kerman", ""))
+                    .Select(member => (isShort) ? member.name.Replace(" Kerman", "") : member.name)
                     .ToArray();
 
                 if (crewMembers.Length > 0)
                 {
-                    value = string.Join(", ", crewMembers) + " Kerman";
+                    if (isList)
+                    {
+                        value = "• " + string.Join(Environment.NewLine + "• ", crewMembers);
+                    }
+                    else
+                    {
+                        value = string.Join(", ", crewMembers) + (isShort ? " Kerman" : "");
+                    }
                 }
                 else {
                     if (vessel.isCommandable)
