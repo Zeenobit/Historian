@@ -69,7 +69,7 @@ A `TEXT` element renders a string of text.
 * `FontSize` Size of the font. Note that rich text format specifiers can override this. _Default: 10_
 * `FontStyle` Style of the font. Supports any one of these values: `Normal`, `Bold`, `Italic`, and `BoldAndItalic`. Note that rich text format specifiers can override this. _Default: Normal_
 * `Color` Color of the font. Note that rich text format specifiers can override this. _Default: 1.0,1.0,1.0,1.0_
-* `CalendarMode` Either `Kerbin` for default style calendar (6 hour days) or `Earth` for 'real' 24 hour days. Should match calendar setting chosen in game _Default: Kerbin_
+* ~~ `CalendarMode` Either `Kerbin` for default style calendar (6 hour days) or `Earth` for 'real' 24 hour days. Should match calendar setting chosen in game _Default: Kerbin_ ~~ Removed - autodetected based on game setting. Note: if setting is changed after Historian has loaded then layout must be reloaded before change will be detected.
 * `BaseYear` Offset added to year values and formatted dates. _Default: 1 (Kerbin CalendarMode) or 1940 (Earth CalendarMode)_
 * `DateFormat` A C# format string for the <Date> element. *NOTE: Earth dates only* Example: `dd/MM/yyyy` for UK style short date. _Default: CurrentCulture.LongDatePattern_
 * `PilotColor` Unity richtext color to apply to pilot names in <Crew> or <CrewShort> elements. _Default: clear_
