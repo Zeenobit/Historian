@@ -111,6 +111,11 @@ The following pre-defined placeholder values can be used inside a text element. 
 * `<Orbit>` Shorthand for `<Ap> x <Pe>`: Example 120.7 km x 91.3 km.
 * `<Crew>` Name of all the crew members, separated by commas, on the active vessel (Only available in Flight Mode). If the vessel is a probe, it will display "Unmanned". If the vessel is space debris, it will display "N/A". Example: _Jebediah Kerman, Bill Kerman_
 * `<CrewShort>` Same as above but assumes all crew members have last name of Kerman and only displays it once at end of list. Example: _Jebediah, Bill, Bob Kerman_
+* `<Pilots>` List of just the pilots in the current vessel's crew.
+* `<Engineers>` List of just the engineers in the current vessel's crew.
+* `<Scientists>` List of just the scientists in the current vessel's crew.
+* `<Tourists>` List of just the tourists in the current vessel's crew.
+* `<PilotsList>, <EngineersList>, <ScientistsList>, <ToursistsList>` As above but formatted as a vertical bullet list of names rather than comma separated.
 * `<Custom>` The current value of the Custom Text. You can set this value using the configuration window. If custom text is not persistent (default), it will be cleared after the next screenshot.
 
 Note that all placeholder values are case-sensitive.
