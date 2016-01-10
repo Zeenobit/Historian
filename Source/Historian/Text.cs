@@ -22,11 +22,6 @@ using UnityEngine;
 
 namespace KSEA.Historian
 {
-    public enum CalendarMode 
-    {
-        Kerbin = 0,
-        Earth
-    }
 
     public class Text : Element
     {
@@ -38,7 +33,7 @@ namespace KSEA.Historian
         private string m_pilotColor, m_engineerColor, m_scientistColor, m_touristColor;
         private int m_baseYear;
         private string m_dateFormat;
-        private CalendarMode m_calendarMode;
+        private bool m_isKerbincalendar;
 
         protected void SetText(string text)
         {
@@ -63,6 +58,7 @@ namespace KSEA.Historian
 
         protected override void OnLoad(ConfigNode node)
         {
+            
             m_Color = node.GetColor("Color", Color.white);
             m_Text = node.GetString("Text", "");
             m_TextAnchor = node.GetEnum("TextAnchor", TextAnchor.MiddleCenter);
@@ -74,8 +70,9 @@ namespace KSEA.Historian
             m_scientistColor = node.GetString("ScientistColor", "clear");
             m_touristColor = node.GetString("TouristColor", "clear");
 
-            m_calendarMode = node.GetEnum("CalendarMode", CalendarMode.Kerbin);
-            m_baseYear = node.GetInteger("BaseYear", m_calendarMode == CalendarMode.Kerbin ? 1 : 1940 );
+            m_isKerbincalendar = GameSettings.KERBIN_TIME;
+
+            m_baseYear = node.GetInteger("BaseYear", m_isKerbincalendar ? 1 : 1940 );
             m_dateFormat = node.GetString("DateFormat", CultureInfo.CurrentCulture.DateTimeFormat.LongDatePattern);
         }
 
@@ -84,7 +81,7 @@ namespace KSEA.Historian
             var ut = Planetarium.GetUniversalTime();
             int[] time;
 
-            if (m_calendarMode == CalendarMode.Kerbin) 
+            if (m_isKerbincalendar) 
             {
                 time = KSPUtil.GetKerbinDateFromUT((int)ut);
             }
@@ -101,18 +98,20 @@ namespace KSEA.Historian
             }
 
             if (text.Contains("<Date>")) {
-                if (m_calendarMode == CalendarMode.Earth) 
+                if (m_isKerbincalendar)
+                {
+                    // not supported for Kerbin dates default to <UT>
+                    text = text.Replace("<Date>", "<UT>");
+                }
+                else
                 {
                     // create date object including time in case user wants to specify time format as well as date
                     var dt = new DateTime(time[4] + m_baseYear, 1, 1, time[2], time[1], time[0]).AddDays(time[3]);
                     text = text.Replace("<Date>", dt.ToString(m_dateFormat));
                 }
-                else
-                {
-                    // not supported for Kerbin dates default to <UT>
-                    text = text.Replace("<Date>", "<UT>");
-                }
             }
+
+            
 
             if (text.Contains("<UT>"))
             {
@@ -298,8 +297,6 @@ namespace KSEA.Historian
 
                 text = text.Replace("<LandingZone>", value);
             }
-
-            
 
             if (text.Contains("<Speed>"))
             {
@@ -501,7 +498,7 @@ namespace KSEA.Historian
                     var period = orbit.period;
                     int[] t; 
 
-                    if (m_calendarMode == CalendarMode.Kerbin)
+                    if (m_isKerbincalendar)
                     {
                         t = KSPUtil.GetKerbinDateFromUT((int)period);
                     }
