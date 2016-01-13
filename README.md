@@ -69,9 +69,8 @@ A `TEXT` element renders a string of text.
 * `FontSize` Size of the font. Note that rich text format specifiers can override this. _Default: 10_
 * `FontStyle` Style of the font. Supports any one of these values: `Normal`, `Bold`, `Italic`, and `BoldAndItalic`. Note that rich text format specifiers can override this. _Default: Normal_
 * `Color` Color of the font. Note that rich text format specifiers can override this. _Default: 1.0,1.0,1.0,1.0_
-* ~~`CalendarMode` Either `Kerbin` for default style calendar (6 hour days) or `Earth` for 'real' 24 hour days. Should match calendar setting chosen in game _Default: Kerbin_~~ Removed - autodetected based on game setting. Note: if setting is changed after Historian has loaded then layout must be reloaded before change will be detected.
 * `BaseYear` Offset added to year values and formatted dates. _Default: 1 (Kerbin CalendarMode) or 1940 (Earth CalendarMode)_
-* `DateFormat` A C# format string for the <Date> element. *NOTE: Earth dates only* Example: `dd/MM/yyyy` for UK style short date. _Default: CurrentCulture.LongDatePattern_
+* `DateFormat` A C# format string for the <Date> element. Example: `dd/MM/yyyy` for UK style short date. _Default: CurrentCulture.LongDatePattern_
 * `PilotColor` Unity richtext color to apply to pilot names in <Crew> or <CrewShort> elements. _Default: clear_
 * `EngineerColor` Unity richtext color to apply to engineer names in <Crew> or <CrewShort> elements. _Default: clear_
 * `ScientistColor` Unity richtext color to apply to scientist names in <Crew> or <CrewShort> elements. _Default: clear_
@@ -82,7 +81,7 @@ Refer to [Unity's Manual](http://docs.unity3d.com/Manual/StyledText.html) for de
 The following pre-defined placeholder values can be used inside a text element. These placeholders will be replaced with their corresponding values when a screenshot is taken.
 
 * `<N>` Inserts a new line.
-* `<Date>` Formatted date string. Only for `CalendarMode=Earth`, same as `<UT>` for `Kerbin` dates.
+* `<Date>` Formatted date string. Standard Earth calendar dates if game settings is Earth time (24 hour days). "Fake" Kerbin dates based on 12 alternating 35 and 36 day months and six day week if game settings is Kerbin time (6 hour days). e.g. Wednesday 13 January 2016 or Esant 06 Trenam 001. __NOTE__: Kerbin day and month names are currently hardcoded (see below for list) but will be customisable in a future release. 
 * `<UT>` KSP Universal Time. Example: _Y12, D29, 2:02:12_
 * `<Year>` Current year in chosen `CalendarMode`
 * `<Day>` Current day in chosen `CalendarMode`
@@ -155,6 +154,13 @@ A `FLAG` element can be used to render the current mission's flag onto the scree
 * `Scale` Scale of the image relative to itself. For example, a value of `2.0,2.0` doubles the size of the texture, while maintaining the aspect ratio. _Default: 1.0,1.0_
 
 If a `Size` property is not defined (or if the size is a zero vector), the size of the image is used automatically. Otherwise it denotes  the size of the image relative to screen dimensions. For example, a value of `1.0,1.0` ensures the image takes up the size of the entire screen. _Default: 0.0,0.0_
+
+#### Kerbin days and months.
+
+The included Kerbin calendar formatter uses the following day and month names. Odd numbered months have 35 days and even numbered months have 36 days.
+
+__Days__: Akant, Brant, Casant, Dovant, Esant, Flant  (_Note: first letter is A,B,...F_)
+__Months__: Unnam, Dosnam, Trenam, Cuatnam, Cinqnam, Seinam, Sietnam, Ocnam, Nuevnam, Diznam, Oncnam, Docenam (_Note: mangled Spanish ("Spangled") numbers with "nam" suffix_)
 
 ### Sample Configuration
 
