@@ -160,6 +160,7 @@ If a `Size` property is not defined (or if the size is a zero vector), the size 
 The included Kerbin calendar formatter uses the following day and month names. Odd numbered months have 35 days and even numbered months have 36 days.
 
 __Days__: Akant, Brant, Casant, Dovant, Esant, Flant  (_Note: first letter is A,B,...F_)
+
 __Months__: Unnam, Dosnam, Trenam, Cuatnam, Cinqnam, Seinam, Sietnam, Ocnam, Nuevnam, Diznam, Oncnam, Docenam (_Note: mangled Spanish ("Spangled") numbers with "nam" suffix_)
 
 ### Sample Configuration
