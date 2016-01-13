@@ -100,8 +100,8 @@ namespace KSEA.Historian
             if (text.Contains("<Date>")) {
                 if (m_isKerbincalendar)
                 {
-                    // not supported for Kerbin dates default to <UT>
-                    text = text.Replace("<Date>", "<UT>");
+                    // use custom date formatter for Kerbin time
+                    text = text.Replace("<Date>", time.FormattedDate(m_dateFormat, m_baseYear));
                 }
                 else
                 {
@@ -318,7 +318,7 @@ namespace KSEA.Historian
             {
                 var value = "";
 
-                if (vessel != null)
+                if (vessel != null && !vessel.isEVA)
                 {
                     if (vessel.GetCrewCount() > 0)
                     {
@@ -342,7 +342,7 @@ namespace KSEA.Historian
             {
                 var value = "";
 
-                if (vessel != null)
+                if (vessel != null && !vessel.isEVA)
                 {
                     if (vessel.GetCrewCount() > 0)
                     {
@@ -429,7 +429,7 @@ namespace KSEA.Historian
                     value = string.Format("{0:F1} {1}", pe, unit);
                 }
 
-                text = text.Replace("<Ap>", value);
+                text = text.Replace("<Pe>", value);
             }
 
             if (text.Contains("<Inc>"))
@@ -550,7 +550,7 @@ namespace KSEA.Historian
         {
             var value = "";
 
-            if (vessel != null)
+            if (vessel != null && !vessel.isEVA)
             {
 
                 var crewMembers = vessel.GetVesselCrew()
@@ -600,9 +600,10 @@ namespace KSEA.Historian
             }
         }
 
+        static readonly string[] m_units = { "m", "km", "Mm", "Gm", "Tm", "Pm" };
+
         protected static void ShortenDistance(double meters, out double result, out string unit)
         {
-            string[] units = new string[]{ "m", "km", "Mm", "Gm", "Tm", "Pm" };
             double d = meters;
             int i = 0;
 
@@ -613,7 +614,7 @@ namespace KSEA.Historian
             }
 
             result = d;
-            unit = units[i];
+            unit = m_units[i];
         }
     }
 }
