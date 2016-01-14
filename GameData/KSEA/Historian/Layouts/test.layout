@@ -1,0 +1,37 @@
+KSEA_HISTORIAN_LAYOUT
+{
+	RECTANGLE
+	{
+		Anchor = 0.0,0.0
+		Size = 1.0,1.0
+		Position = 0.8,0.0
+		Color = 0.0,0.0,0.0,0.6
+	}
+
+	FLAG
+	{
+		Anchor = 0.5,0.5
+		Position = 0.1,0.91
+		Scale = 1,1
+		DefaultTexture = Squad/Flags/default
+	}
+	
+	TEXT
+	{
+		Anchor = 0.0,0.0
+		Position = 0.82,0.15
+		Size = 0.9,1.0
+		Color = 1.0,1.0,1.0,1.0
+		Text = <size=24><b>Test</b></size><N><N>Altitude: Altitude<N>Ap: <Ap><N>ArgPe: <ArgPe><N>Biome: <Biome><N>Body: <Body><N>Crew: <Crew><N>CrewShort: <CrewShort><N>Custom: <Custom><N>Date: <Date><N>Day: <Day><N>Ecc: <Ecc><N>Engineers: <Engineers><N><EngineersList><N>Heading: <Heading><N>Hour: <Hour><N>Inc: <Inc><N>LAN: <LAN><N>LandingZone: <LandingZone><N>Latitude: <Latitude><N>Longitude: <Longitude><N>Mach: <Mach><N>Minute: <Minute><N>Orbit: <Orbit><N>Pe: <Pe><N>Period: <Period><N>Pilots: <Pilots><N><PilotsList><N>Scientists: <Scientists><N><ScientistsList><N>Second: <Second><N>Situation: <Situation><N>Speed: <Speed><N>T+ <T+><N>Tourists: <Tourists><N><TouristsList><N>UT: <UT><N>Vessel: <Vessel><N>Year: <Year>
+		TextAnchor = UpperLeft
+		FontSize = 14
+		FontStyle = Normal
+		
+		BaseYear = 3000
+		
+		PilotColor = red
+		EngineerColor = yellow
+		ScientistColor = aqua
+		ToutistColor = green
+	}
+}
